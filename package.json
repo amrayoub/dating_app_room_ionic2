@@ -47,5 +47,8 @@
       "locator": "ios"
     }
   ],
-  "description": "Zaparoom: An Ionic project"
+  "description": "Zaparoom: An Ionic project",
+  "config": {
+    "ionic_source_map": "source-map"
+  }
 }

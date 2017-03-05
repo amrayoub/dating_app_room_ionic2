@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
+import { HomePage } from '../../pages/home/home';
  
 @Component({
   selector: 'page-register',
@@ -35,7 +36,8 @@ export class RegisterPage {
          text: 'OK',
          handler: data => {
            if (this.createSuccess) {
-             this.nav.popToRoot();
+            //  this.nav.popToRoot();
+            this.nav.setRoot(HomePage);
            }
          }
        }

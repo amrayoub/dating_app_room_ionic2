@@ -12,7 +12,7 @@ export class HomePage {
   email = '';
   constructor(private nav: NavController, private auth: AuthService) {
     let info = this.auth.getUserInfo();
-    this.username = info.name;
+    this.username = info.firstName + " " + info.lastName;
     this.email = info.email;
   }
  
