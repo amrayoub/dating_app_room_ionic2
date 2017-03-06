@@ -19,20 +19,22 @@ export class LoginPage {
   }
  
   public login() {
-    this.showLoading()
-    this.auth.login(this.registerCredentials).subscribe(allowed => {
-      if (allowed) {
-        setTimeout(() => {
-        this.loading.dismiss();
-        this.nav.setRoot(HomePage)
-        });
-      } else {
-        this.showError("Access Denied");
-      }
-    },
-    error => {
-      this.showError(error);
-    });
+    if(this.isInvalidateEmail(this.registerCredentials.email)){
+      this.showPopup("Error", "You have entered an invalid email address!");
+    }else{
+      this.showLoading();
+      this.auth.login(this.registerCredentials).subscribe(allowed => {
+        if (allowed) {
+          this.loading.dismiss();
+          this.nav.setRoot(HomePage);
+        } else {
+          this.showError(this.auth.errorMessage);
+        }
+      },
+      error => {
+        this.showError(error);
+      });
+    }
   }
  
   showLoading() {
@@ -41,7 +43,18 @@ export class LoginPage {
     });
     this.loading.present();
   }
- 
+  showPopup(title, text) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: text,
+      buttons: [
+       {
+         text: 'OK'
+       }
+     ]
+    });
+    alert.present();
+  }
   showError(text) {
     setTimeout(() => {
       this.loading.dismiss();
@@ -53,5 +66,12 @@ export class LoginPage {
       buttons: ['OK']
     });
     alert.present(prompt);
+  }
+  private isInvalidateEmail(mail){  
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)){  
+      return (false);  
+    }else {
+      return (true);  
+    }
   }
 }

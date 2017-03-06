@@ -5,7 +5,7 @@
 </ion-header>
  
 <ion-content class="login-content" padding>
-  <div style="margin-top: 6em;"></div>
+  <div style="margin-top: 3em;"></div>
   <div class="register-title">
     SIGN UP
   </div>
@@ -28,7 +28,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-              <ion-input type="text" placeholder="Email Address" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
+              <ion-input type="email" placeholder="Email Address" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
             </ion-item>
         </ion-col>
       </ion-row>
@@ -42,14 +42,15 @@
       
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Sign up</button>
+          <!--<button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Sign up</button>-->
+          <button ion-button class="submit-btn" full type="submit">Sign up</button>
         </ion-col>
       </ion-row>
     </form>
     <div class="register-title-or">
       OR
     </div>
-    <button ion-button full item-right icon-left>
+    <button ion-button full item-right icon-left (click)="signUpWithFB()">
       <ion-grid text-center>
         <ion-row>
           <ion-col width-10 class="facebook-icon">
