@@ -18,7 +18,11 @@ export class HomePage {
  
   public logout() {
     this.auth.logout().subscribe(succ => {
+      if(succ){
         this.nav.setRoot(LoginPage)
+      }else{
+        alert("Error!, Try again");
+      }
     });
   }
 }

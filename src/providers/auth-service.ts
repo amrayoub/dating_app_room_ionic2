@@ -144,16 +144,44 @@ export class AuthService {
       });
     });
   }
- 
+
+  isLogged() {
+    let _this = this;
+    return Observable.create(observer => {
+      NativeStorage.getItem('user').then(function(data){
+      _this.currentUser = new User(data.firstName, data.lastName, data.email);
+      observer.next(true);
+      }, function(error){
+        console.log(error);
+        observer.next(false);
+      });
+    });
+  }
+
   public getUserInfo() : User {
+    if(this.currentUser.firstName == null){
+      let _this = this;
+      NativeStorage.getItem('user').then(function(data){
+      console.log(data);
+      _this.currentUser = new User(data.firstName, data.lastName, data.email);
+      }, function(error){
+        console.log(error);
+      });
+    }
     return this.currentUser;
   }
  
   public logout() {
+    let _this = this;
     return Observable.create(observer => {
-      this.currentUser = null;
-      observer.next(true);
-      observer.complete();
+      NativeStorage.remove('user').then(function(){
+        _this.currentUser = null;
+        observer.next(true);
+        observer.complete();  
+      }, function(error){
+        observer.next(false);
+        observer.complete();  
+      });
     });
   }
 }
